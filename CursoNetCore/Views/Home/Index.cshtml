@@ -1,0 +1,96 @@
+﻿@model IEnumerable<CursoNetCore.Models.Usuario>
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Crud Usuario</h1>
+</div>
+
+<div class="row">
+	<div class="col-12">
+		<div class="float-right">
+			<a asp-action="CreateUsuario" asp-controller="Home" class="btn btn-success"><i class="fas fa-plus"> Nuevo Usuario</i> </a>
+		</div>
+	</div>
+</div>
+<div class="row mt-3">
+	<div class="col-12">
+		<div class="card border">
+			<div class="card-header">
+				<h3><strong>Lista de usuarios</strong> </h3>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				@if (Model.Count() > 0)
+				{
+					<table class="table table-bordered" id="tablaUsuarios" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>@Html.DisplayNameFor(m => m.Nombre)</th>
+								<th>@Html.DisplayNameFor(m => m.Telefeno)</th>
+								<th>@Html.DisplayNameFor(m => m.Celular)</th>
+								<th>@Html.DisplayNameFor(m => m.Enail)</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>@Html.DisplayFor(m => item.Nombre)</td>
+									<td>@Html.DisplayFor(m => item.Telefeno)</td>
+									<td>@Html.DisplayFor(m => item.Celular)</td>
+									<td>@Html.DisplayFor(m => item.Enail)</td>
+									<td>
+										<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar </a>
+										<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles </a>
+										<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Borrar </a>
+									</td>
+								</tr>
+
+							}
+						</tbody>
+					</table>
+				}
+				else
+				{
+					<p>No hay Registros.</p>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts{
+
+
+	<script>
+		//Llamar a DataTable
+		$(document).ready(function () {
+			$('#tablaUsuarios').dataTable({
+				language: {
+					"decimal": "",
+					"emptyTable": "Np hay información",
+					"info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+					"infoEmpety": "Mostrando 0 to 0 of Entradas",
+					"infoPosFix": "",
+					"thousands": ",",
+					"lengtMenu": "Mostrar _MENU_ Entradas",
+					"loadingRecords": "Cargando....",
+					"processing": "Procesando",
+					"search": "Buscar",
+					"ZeroRecords": "Sin resultados encontrados",
+					"Paginate": {
+						"first": "Primero",
+						"last": "Ultimo",
+						"next": "Siguiente",
+						"previous": "Anterior"
+					}
+				}
+			});
+		});
+	</script>
+}
